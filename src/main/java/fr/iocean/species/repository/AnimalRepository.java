@@ -51,6 +51,26 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer> {
 //            " join person on person.id = person_id" +
 //            " where animal.id = :animalId" +
 //            " )", nativeQuery = true)
+
+    // autre solution possible avec MySQL
+    //SELECT IF
+    //(
+    //	(
+    //		SELECT COUNT(*)
+    //		FROM person as p
+    //		INNER JOIN person_animals as p_a ON  p.id = p_a.person_id
+    //		INNER JOIN animal as a ON a.id = p_a.animals_id
+    //		INNER JOIN species as s  ON s.id = a.species_id
+    //		WHERE s.common_name = 'Chat'
+    //	)>0, 'TRUE', 'FALSE'
+    //)
+    //
+    // SELECT IF((SELECT COUNT(*)
+    //        FROM person as p
+    //        INNER JOIN person_animals as p_a ON  p.id = p_a.person_id
+    //        WHERE p_a.animals_id = 1),
+    //          "TRUE", "FALSE")
+
     @Query(value = "select count(*) > 0 from person_animals where animals_id = :animalId", nativeQuery = true)
     Boolean animalHasOwnerSql(@Param("animalId") Integer animalId);
 
