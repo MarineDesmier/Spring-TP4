@@ -2,6 +2,7 @@ package fr.iocean.species.repository;
 
 import fr.iocean.species.model.Person;
 import org.hibernate.query.NativeQuery;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,9 +18,31 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
     private EntityManager em;
 
     @Override
+    @Transactional
     public int deletePersonsWithoutAnimal() {
+        // Autres solutions
+
+        // En JPQL
+        // Query q = em.createQuery("DELETE FROM Person WHERE animals IS EMPTY");
+
+        // En SQL
+        // Query q = em.createNativeQuery("DELETE FROM person WHERE person.id NOT IN (" +
+        //         "SELECT person_id FROM person_animals" +
+        //         ")");
+        
         Query sqlQuery = em.createNativeQuery("delete p from person p left join person_animals pa on p.id = pa.person_id where pa.animals_id is null");
         return sqlQuery.executeUpdate();
+    }
+
+    @Transactional
+    public void deletePersonsWithoutAnimal2() {
+        // En JPQL
+//        Query q = em.createQuery("DELETE FROM Person WHERE animals IS EMPTY");
+        // En SQL
+        Query q = em.createNativeQuery("DELETE FROM person WHERE person.id NOT IN (" +
+                "SELECT person_id FROM person_animals" +
+                ")");
+        q.executeUpdate();
     }
 
     @Override
