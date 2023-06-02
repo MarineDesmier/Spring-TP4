@@ -26,8 +26,9 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
     public int deletePersonsWithoutAnimal() {
         // Autres solutions
 
-        // En JPQL
+        // En JPQL - Simple mais plante sur MySQL ?
         // Query q = em.createQuery("DELETE FROM Person WHERE animals IS EMPTY");
+
 
         // En SQL
         // Query q = em.createNativeQuery("DELETE FROM person WHERE person.id NOT IN (" +
@@ -47,6 +48,25 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
                 "SELECT person_id FROM person_animals" +
                 ")");
         q.executeUpdate();
+    }
+
+    /**
+     * Pour "contrer" l'erreur avec MySQL quand on écrit en JPQL "DELETE FROM Person WHERE animals IS EMPTY"
+     * @return
+     */
+    public int deletePersonsWithoutAnimalMySQL() {
+        List<Person> personToDelete = em.createQuery(
+                "SELECT p FROM Person p WHERE p.animals IS EMPTY",
+                Person.class
+        ).getResultList();
+
+        System.out.println("Personnes à supprimer : " + personToDelete);
+        int i = 0;
+        for (Person p : personToDelete) {
+            em.remove(p);
+            i++;
+        }
+        return i;
     }
 
     @Override
