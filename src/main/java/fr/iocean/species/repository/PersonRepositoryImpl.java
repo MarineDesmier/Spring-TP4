@@ -4,7 +4,14 @@ import fr.iocean.species.model.Person;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -55,6 +62,47 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
             p.setLastname(noms.get(rand.nextInt(noms.size())));
             em.persist(p);
         }
+    }
+
+    /**
+     * Méthode d'exemple avec paramètres qui peuvent être null ("optionels)
+     *
+     * @param firstname le prénom à chercher dans les personnes
+     * @param lastname le nom de famille à chercher dans les personnes
+     * @param age l'age des personnes retournées
+     * @return la liste des personnes qui correspondent aux critères fournis
+     */
+    @Override
+    public List<Person> testCriterias(
+            String firstname,
+            String lastname,
+            Integer age
+    ) {
+        // Utilisation de JPA Criterias
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Person> cq = cb.createQuery(Person.class);
+        Root<Person> rootPerson = cq.from(Person.class);
+
+        // Une liste de prédicats qui va être complétée selon les paramètres fournis
+        // Paramètre null = on ne met pas dans la liste
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (StringUtils.hasText(firstname)) {
+            predicates.add(cb.like(rootPerson.get("firstname"), "%" + firstname + "%"));
+        }
+
+        if (StringUtils.hasText(lastname)) {
+            predicates.add(cb.like(rootPerson.get("lastname"), "%" + lastname + "%"));
+        }
+
+        if (age != null && age > 0) {
+            predicates.add(cb.equal(rootPerson.get("age"), age));
+        }
+
+        // Utilisation de la liste de prédicats pour créer une clause "where"
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(cq).getResultList();
     }
 
 }
