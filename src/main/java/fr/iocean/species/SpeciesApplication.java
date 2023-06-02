@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -33,7 +33,7 @@ public class SpeciesApplication implements CommandLineRunner {
         SpringApplication.run(SpeciesApplication.class, args);
     }
 
-    @Override
+//    @Override
     @Transactional
     public void run(String... args) throws Exception {
         // TP 04 - Requêtes dérivées du nom
@@ -44,7 +44,7 @@ public class SpeciesApplication implements CommandLineRunner {
         // TP 05 - @Query
 //        testSpeciesRepo2();
 //        testPersonRepo2();
-//        testAnimalRepo2();
+        testAnimalRepo2();
 
         // TP 06 - Intf custom
         // testPersonRepoImpl();
@@ -92,7 +92,10 @@ public class SpeciesApplication implements CommandLineRunner {
         );
 
         logger.info(">>> Animaux qui sont soit Bruns Blancs ou Noirs : {}",
-                this.animalRepository.findByColorIn(Arrays.asList("Blanc", "Brun", "Noir")));
+                this.animalRepository.findByColorIn(
+                        Arrays.asList("Blanc", "Brun", "Noir")
+                )
+        );
     }
 
     private void testAnimalRepo2() {

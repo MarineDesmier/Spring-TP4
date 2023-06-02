@@ -1,13 +1,10 @@
 package fr.iocean.species.repository;
 
 import fr.iocean.species.model.Person;
-import org.hibernate.query.NativeQuery;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;

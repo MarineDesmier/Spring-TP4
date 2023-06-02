@@ -2,7 +2,7 @@ package fr.iocean.species.model;
 
 import fr.iocean.species.enums.Sex;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity

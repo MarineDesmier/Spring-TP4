@@ -1,6 +1,6 @@
 package fr.iocean.species.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
