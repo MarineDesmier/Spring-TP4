@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 
 @SpringBootApplication
-public class SpeciesApplication implements CommandLineRunner {
+public class SpeciesApplication /*implements CommandLineRunner */{
 
     Logger logger = LoggerFactory.getLogger(SpeciesApplication.class);
 

@@ -1,0 +1,40 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<meta charset="utf-8">
+		<title>Détail d'un animal</title>
+	</head>
+	
+	<body>
+		<form th:object="${animalItem}" th:action="@{/animal}" method="post">
+			<div class="form-group"> 
+				<label for="species">Espèce :</label> 
+				<select th:field="*{species}" id="species">
+					<option 
+						th:each="sp : ${speciesList}" 
+						th:value="${sp.id}" 
+						th:text="${sp.commonName + '('+ sp.latinName +')'}">
+					</option>
+				</select> 
+			</div>
+			<div class="form-group">
+				<label for="name">Nom : </label>
+				<input type="text" th:field="*{name}" id="name" />
+			</div>
+			<div class="form-group">
+				<label for="color">Couleur :</label>
+				<input type="text" th:field="*{color}" id="color" />
+			</div>
+			<div class="form-group">
+				<label for="sex">Sexe :</label>
+				<input type="text" th:field="*{sex}" id="sex" />
+			</div>
+			<div class="form-group">
+				<input type="submit" class="button" value="Sauver" />
+				<input type="button" class="button" value="Retour" onclick="window.location='/animal'" />
+			</div>
+		</form>
+	</body>
+
+</html>

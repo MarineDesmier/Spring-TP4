@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<meta charset="utf-8">
+		<title>Création d'une personne</title>
+	</head>
+	<body>
+	<h1>Création d'une personne</h1>
+		<form th:object="${newPerson}" th:action="@{/person}" method="post"> 
+			<div class="form-group"> 
+				<label for="firstname">Prénom : </label> 
+				<input type="text" th:field="*{firstname}" id="firstname" />
+			</div>
+			<div class="form-group"> 
+				<label for="lastname">Nom :</label> 
+				<input type="text" th:field="*{lastname}" id="lastname" />
+			</div>
+			<div class="form-group"> 
+				<label for="age">Âge :</label> 
+				<input type="text" th:field="*{age}" id="age" />
+			</div>
+			<div class="form-group"> 
+				<input type="submit" class="button" value="Sauver" /> 
+				<input type="button" class="button" value="Retour"
+						onclick="window.location='/person'" /> 
+			</div>
+		</form>
+	</body>
+</html>

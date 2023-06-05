@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<meta charset="utf-8">
+		<title>Liste des Espèces</title>
+	</head>
+	
+	<body>
+		<h1>Listes des espèces</h1>
+		<div class="creation">
+			<button type="button" onclick="window.location='/species/create'">Ajouter une Espèce</button>
+		</div>
+		<table class="mainTable">
+			<thead>
+				<td>Nom commun</td>
+				<td>Nom latin</td>
+				<td></td>
+			</thead>
+			<tbody>
+				/* speciesItem est dans le model attribut */
+				<tr th:each="speciesItem : ${speciesList}">
+					<td th:text="${speciesItem.commonName}" />
+					<td th:text="${speciesItem.latinName}" />
+					<td><a th:href="@{'/species/' + ${speciesItem.id}}">Lien</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>
