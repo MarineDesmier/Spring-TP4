@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.iocean.species.model.Species;
 import fr.iocean.species.repository.SpeciesRepository;
@@ -49,10 +51,16 @@ public class SpeciesController {
 		return "species/create_species";
 	}
 
-	@PostMapping("/species")
+	@PostMapping("species")
 	public String createOrUpdate(Species speciesItem) {
+		// L'espèce a un identifiant, c'est une mise à jour
 		this.speciesRepository.save(speciesItem);
 		return "redirect:/species";
 	}
 
+	@GetMapping("/species/delete/{id}")
+	public String delete(@PathVariable("id") Integer speciesId) {
+		speciesRepository.deleteById(speciesId);
+		return "redirect:/species";
+	}
 }

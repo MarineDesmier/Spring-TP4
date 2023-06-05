@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import fr.iocean.species.enums.Sex;
 import fr.iocean.species.model.Animal;
 import fr.iocean.species.model.Species;
 import fr.iocean.species.repository.AnimalRepository;
@@ -46,7 +47,8 @@ public class AnimalController {
 		model.addAttribute("animalItem", animalOpt.get());
 		model.addAttribute("speciesList", 
 				speciesRepository.findAll(Sort.by(Sort.Direction.ASC, "commonName"))
-		); 
+		);
+		model.addAttribute("enumSex", Sex.values());
 		// 3eme retourne la vue
 		return "animal/detail_animal";
 	}

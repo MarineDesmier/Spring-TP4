@@ -1,5 +1,10 @@
-body{
+.body{
 	background-color: #9da9ee;
+	margin: 10px;
+}
+
+h1, h2{
+	text-align: center;
 }
 
 .creation{
@@ -16,4 +21,13 @@ tbody tr td:last-child{
 
 .form-group{
 	padding-bottom: 6px;
+}
+
+tbody tr td a{
+	text-decoration: none;
+}
+
+form{
+	text-align: center;
+	margin: 50px;
 }

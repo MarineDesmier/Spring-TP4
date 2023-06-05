@@ -2,10 +2,16 @@
 
 	<head>
 		<link rel="stylesheet" th:href="@{/css/main.css}" />
+		<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
 		<meta charset="utf-8">
 		<title>Création d'un animal</title>
 	</head>
-	<body>
+	<body class="body">
 	<h1>Création d'un animal</h1>
 		<form th:object="${newAnimal}" th:action="@{/animal}" method="post"> 
 			<div class="form-group">
@@ -21,8 +27,8 @@
 				<input type="text" th:field="*{sex}" id="sex" />
 			</div>
 			<div class="form-group">
-				<input type="submit" class="button" value="Sauver" />
-				<input type="button" class="button" value="Retour" onclick="window.location='/animal'" />
+				<input type="submit" class="btn btn-info" value="Sauver" />
+				<input type="button" class="btn btn-danger" value="Retour" onclick="window.location='/animal'" />
 			</div>
 		</form>
 	</body>

@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.iocean.species.model.Person;
+import fr.iocean.species.model.Species;
 import fr.iocean.species.repository.AnimalRepository;
 import fr.iocean.species.repository.PersonRepository;
 
@@ -44,7 +46,7 @@ public class PersonController {
 		model.addAttribute("personItem", personOpt.get());
 		model.addAttribute("animalList", 
 				animalRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
-		); 
+		);
 		// 3eme retourne la vue
 		return "person/detail_person";
 	}
@@ -55,4 +57,17 @@ public class PersonController {
 		// 3eme retourne la vue
 		return "person/create_person";
 	}
+	
+	@PostMapping("person")
+	public String createOrUpdate(Person personItem) {
+		this.personRepository.save(personItem);
+		return "redirect:/person";
+	}
+
+	@GetMapping("/person/delete/{id}")
+	public String delete(@PathVariable("id") Integer personId) {
+		personRepository.deleteById(personId);
+		return "redirect:/person";
+	}
+	
 }
