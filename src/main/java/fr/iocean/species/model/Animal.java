@@ -3,6 +3,9 @@ package fr.iocean.species.model;
 import fr.iocean.species.enums.Sex;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
 import java.util.Set;
 
 @Entity
@@ -12,6 +15,7 @@ public class Animal {
     private Integer id;
 
     @Column(length = 50)
+    @NotEmpty
     private String name;
 
     @Column(length = 50)
@@ -21,6 +25,7 @@ public class Animal {
     private Sex sex;
 
     @ManyToOne
+    @NotBlank
     private Species species;
 
     @ManyToMany(mappedBy = "animals")

@@ -1,6 +1,11 @@
 package fr.iocean.species.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.Set;
 
 @Entity
@@ -10,11 +15,15 @@ public class Person {
     private Integer id;
 
     @Column(length = 50)
+    @NotEmpty
+    @Size(max = 50)
     private String firstname;
 
     @Column(length = 50)
     private String lastname;
 
+    @Min(1)
+    @Max(120)
     private Integer age;
 
     @ManyToMany(fetch = FetchType.EAGER)

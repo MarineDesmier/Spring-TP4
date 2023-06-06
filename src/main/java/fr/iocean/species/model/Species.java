@@ -1,6 +1,9 @@
 package fr.iocean.species.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Species {
@@ -9,9 +12,12 @@ public class Species {
     private Integer id;
 
     @Column(length = 50)
+    @Size(min = 5, max = 50)
     private String commonName;
 
     @Column(length = 200)
+    @Min(5)
+    @Max(200)
     private String latinName;
 
     @Override

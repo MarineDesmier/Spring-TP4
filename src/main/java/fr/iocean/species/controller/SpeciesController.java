@@ -37,7 +37,7 @@ public class SpeciesController {
 		Optional<Species> speciesOpt = speciesRepository.findById(id);
 		if (speciesOpt.isEmpty()) {
 			// pas de species avec l'id renseigné
-			return "species/error";
+			return "/error";
 		}
 		model.addAttribute("speciesItem", speciesOpt.get());
 		// 3eme retourne la vue

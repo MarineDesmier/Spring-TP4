@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import fr.iocean.species.model.Person;
 import fr.iocean.species.model.Species;
 import fr.iocean.species.repository.AnimalRepository;
 import fr.iocean.species.repository.PersonRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class PersonController {
@@ -41,9 +43,9 @@ public class PersonController {
 		Optional<Person> personOpt = personRepository.findById(id);
 		if(personOpt.isEmpty()) {
 			// pas de species avec l'id renseigné
-			return "person/errorPerson";
+			return "/error";
 		}
-		model.addAttribute("personItem", personOpt.get());
+		model.addAttribute("person", personOpt.get());
 		model.addAttribute("animalList", 
 				animalRepository.findAll(Sort.by(Sort.Direction.ASC, "name"))
 		);
@@ -53,14 +55,21 @@ public class PersonController {
 	
 	@GetMapping("person/create")
 	public String getCreatePerson(Model model) {
-		model.addAttribute("newPerson", new Person());
+		model.addAttribute("person", new Person());
 		// 3eme retourne la vue
 		return "person/create_person";
 	}
 	
 	@PostMapping("person")
-	public String createOrUpdate(Person personItem) {
-		this.personRepository.save(personItem);
+	public String createOrUpdate(@Valid Person person, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+			model.addAttribute("animalList", animalRepository.findAll());
+			if(person.getId() != null) {
+				return "person/detail_person";
+			}
+			return "person/create_person";
+		}
+		this.personRepository.save(person);
 		return "redirect:/person";
 	}
 

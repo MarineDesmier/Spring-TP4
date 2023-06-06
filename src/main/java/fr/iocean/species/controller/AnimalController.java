@@ -42,7 +42,7 @@ public class AnimalController {
 		Optional<Animal> animalOpt = animalRepository.findById(id);
 		if(animalOpt.isEmpty()) {
 			// pas de species avec l'id renseigné
-			return "animal/errorAnimal";
+			return "/error";
 		}
 		model.addAttribute("animalItem", animalOpt.get());
 		model.addAttribute("speciesList", 

@@ -25,13 +25,13 @@
 				<td>Action</td>
 			</thead>
 			<tbody>
-				<tr th:each="personItem : ${personList}">
-					<td th:text="${personItem.firstname}" />
-					<td th:text="${personItem.lastname}" />
-					<td th:text="${personItem.age}" />
+				<tr th:each="person : ${personList}">
+					<td th:text="${person.firstname}" />
+					<td th:text="${person.lastname}" />
+					<td th:text="${person.age}" />
 					<td>
-						<a th:href="@{'/person/' + ${personItem.id}}">🔍</a>
-						<a th:href="@{'/person/delete/' + ${personItem.id}}">🗑</a>
+						<a th:href="@{'/person/' + ${person.id}}">🔍</a>
+						<a th:href="@{'/person/delete/' + ${person.id}}">🗑</a>
 					</td>
 				</tr>
 			</tbody>
