@@ -16,8 +16,7 @@ public class Species {
     private String commonName;
 
     @Column(length = 200)
-    @Min(5)
-    @Max(200)
+    @Size(min = 5, max = 200)
     private String latinName;
 
     @Override

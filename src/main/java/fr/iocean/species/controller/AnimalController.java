@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import fr.iocean.species.enums.Sex;
 import fr.iocean.species.model.Animal;
 import fr.iocean.species.model.Species;
 import fr.iocean.species.repository.AnimalRepository;
 import fr.iocean.species.repository.SpeciesRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class AnimalController {
@@ -58,5 +61,31 @@ public class AnimalController {
 		model.addAttribute("newAnimal", new Animal());
 		// 3eme retourne la vue
 		return "animal/create_animal";
+	}
+	
+	@PostMapping("animal")
+	public String createOrUpdate(Animal animalItem) {
+		this.animalRepository.save(animalItem);
+		return "redirect:/animal";
+	}
+	
+//	Ne fonctionne pas elle me modifie pas l'entité choisi mais en crée une nouvelle
+//	@PostMapping("animal")
+//	public String createOrUpdate(@Valid Animal animal, BindingResult result, Model model) {
+//		if(result.hasErrors()) {
+//			model.addAttribute("speciesList", speciesRepository.findAll());
+//			if(animal.getId() != null) {
+//				return "animal/detail_animal";
+//			}
+//			return "animal/create_animal";
+//		}
+//		this.animalRepository.save(animal);
+//		return "redirect:/animal";
+//	}
+	
+	@GetMapping("/animal/delete/{id}")
+	public String delete(@PathVariable("id") Integer animalId) {
+		animalRepository.deleteById(animalId);
+		return "redirect:/animal";
 	}
 }

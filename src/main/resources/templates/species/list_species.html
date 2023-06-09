@@ -19,15 +19,15 @@
 	</div>
 	<table class="table table-striped table-hover">
 		<thead>
-			<td>Nom commun</td>
-			<td>Nom latin</td>
-			<td>Action</td>
+			<td class="col-3">Nom commun</td>
+			<td class="col-3">Nom latin</td>
+			<td class="col-3" >Action</td>
 		</thead>
 		<tbody>
 		<!--speciesItem est dans le model attribut-->
 			<tr th:each="speciesItem : ${speciesList}">
-				<td th:text="${speciesItem.commonName}" />
-				<td th:text="${speciesItem.latinName}" />
+				<td class="col-3" th:text="${speciesItem.commonName}" />
+				<td class="col-3" th:text="${speciesItem.latinName}" />
 				<td>
 					<a th:href="@{'/species/' + ${speciesItem.id}}">🔍</a>
 					<a th:href="@{'/species/delete/' + ${speciesItem.id}}">🗑</a>

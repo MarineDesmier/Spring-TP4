@@ -11,10 +11,13 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.github.javafaker.Faker;
+
+import java.util.Random;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class PersonRepositoryImpl implements PersonRepositoryCustom {
 
@@ -38,6 +41,25 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
         Query sqlQuery = em.createNativeQuery("delete p from person p left join person_animals pa on p.id = pa.person_id where pa.animals_id is null");
         return sqlQuery.executeUpdate();
     }
+    
+    @Override
+   	@Transactional
+   	public void addPerson(Integer nbPerson) {
+
+   		//Génére des noms aléatoire
+   		Faker faker = new Faker();
+
+   		for (int i = 0; i < nbPerson; i++) {
+   			Person person = new Person();
+   			person.setFirstname(faker.name().firstName());
+   			person.setLastname(faker.name().lastName());
+   			person.setAge((int)(Math.random()*120));
+   			em.persist(person);
+   		}
+
+   		System.out.println("Nombre de personnes ajouté : " + nbPerson);
+
+   	}
 
     @Transactional
     public void deletePersonsWithoutAnimal2() {
@@ -49,7 +71,7 @@ public class PersonRepositoryImpl implements PersonRepositoryCustom {
                 ")");
         q.executeUpdate();
     }
-
+    
     /**
      * Pour "contrer" l'erreur avec MySQL quand on écrit en JPQL "DELETE FROM Person WHERE animals IS EMPTY"
      * @return

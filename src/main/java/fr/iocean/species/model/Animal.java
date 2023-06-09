@@ -5,6 +5,7 @@ import fr.iocean.species.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class Animal {
     private Sex sex;
 
     @ManyToOne
-    @NotBlank
+    @NotNull
     private Species species;
 
     @ManyToMany(mappedBy = "animals")

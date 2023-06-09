@@ -25,21 +25,12 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer> {
      */
     List<Animal> findByColorIn(List<String> colors);
 
-
-
-
-
-
-
-
-
     /**
      * Renvoie le nombre d’Animaux dont le Sex est égal à la valeur donnée en paramètres
      * @param sex le Sexe que les animaux à dénombrer ont
      */
     @Query("select count(a) from Animal a where a.sex = :sex")
     Integer countBySex(@Param("sex") Sex sex);
-
 
     /**
      * Renvoie true si l’animal fourni « appartient » à au moins une personne, false sinon.

@@ -11,8 +11,9 @@ h1, h2{
 	margin-bottom: 10px;
 }
 
-thead td {
+thead th {
 	padding-right: 5px;
+	font-weight: bold;
 }
 
 tbody tr td:last-child{

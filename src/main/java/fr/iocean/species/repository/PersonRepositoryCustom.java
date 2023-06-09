@@ -7,6 +7,8 @@ import java.util.List;
 public interface PersonRepositoryCustom {
 
     int deletePersonsWithoutAnimal();
+    
+    public void addPerson(Integer nbPersonnes);
 
     void insertRandomPersons(int numberToCreate);
 

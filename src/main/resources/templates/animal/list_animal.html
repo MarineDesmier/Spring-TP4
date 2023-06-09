@@ -19,16 +19,16 @@
 		</div>
 		<table class="table table-striped table-hover">
 			<thead>
-				<td>Nom </td>
-				<td>Couleur</td>
-				<td>Sexe</td>
-				<td>Action</td>
+				<td class="col-3">Nom </td>
+				<td class="col-3">Couleur</td>
+				<td class="col-3">Sexe</td>
+				<td class="col-3">Action</td>
 			</thead>
 			<tbody>
 				<tr th:each="animalItem : ${animalList}">
-					<td th:text="${animalItem.name}" />
-					<td th:text="${animalItem.color}" />
-					<td th:text="${animalItem.sex}" />
+					<td class="col-3" th:text="${animalItem.name}" />
+					<td class="col-3" th:text="${animalItem.color}" />
+					<td class="col-3" th:text="${animalItem.sex}" />
 					<td>
 						<a th:href="@{'/animal/' + ${animalItem.id}}">🔍</a>
 						<a th:href="@{'/animal/delete/' + ${animalItem.id}}">🗑</a>

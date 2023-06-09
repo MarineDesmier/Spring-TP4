@@ -130,7 +130,7 @@ public class SpeciesApplication /*implements CommandLineRunner */{
         logger.info(">>> Nombre de personnes supprimées : {}",
             this.personRepository.deletePersonsWithoutAnimal());
 
-        logger.info(">>> Insérer 20 personnes aléatoires");
-        this.personRepository.insertRandomPersons(200);
+        logger.info(">>> Insérer des personnes aléatoires");
+        this.personRepository.addPerson(6);
     }
 }

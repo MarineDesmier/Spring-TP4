@@ -27,17 +27,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer>, Person
      */
     List<Person> findByAgeGreaterThanEqual(Integer ageMinimal);
 
-
-
-
-
-
-
-
-
-
-
-
     /**
      * Retourne la liste des Personnes dont l’âge est entre « age min » et « age max ».
      *

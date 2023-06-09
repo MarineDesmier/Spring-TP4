@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fr.iocean.species.model.Person;
 import fr.iocean.species.model.Species;
@@ -42,7 +43,7 @@ public class PersonController {
 	public String getDetailPerson(@PathVariable("id") Integer id, Model model) {
 		Optional<Person> personOpt = personRepository.findById(id);
 		if(personOpt.isEmpty()) {
-			// pas de species avec l'id renseigné
+			// pas de person avec l'id renseigné
 			return "/error";
 		}
 		model.addAttribute("person", personOpt.get());
@@ -56,8 +57,18 @@ public class PersonController {
 	@GetMapping("person/create")
 	public String getCreatePerson(Model model) {
 		model.addAttribute("person", new Person());
+		model.addAttribute("animalList", 
+				animalRepository.findAll(Sort.by(Sort.Direction.ASC, "name")));
+		
 		// 3eme retourne la vue
 		return "person/create_person";
+	}
+	
+	// pour generer directement des personnes en aleatoire
+	@GetMapping("person/generate")
+	public String generateRandomPerson(@RequestParam("nb") Integer nbToCreate) {
+		personRepository.addPerson(nbToCreate);
+		return "redirect:/person";
 	}
 	
 	@PostMapping("person")
@@ -69,7 +80,7 @@ public class PersonController {
 			}
 			return "person/create_person";
 		}
-		this.personRepository.save(person);
+		personRepository.save(person);
 		return "redirect:/person";
 	}
 
