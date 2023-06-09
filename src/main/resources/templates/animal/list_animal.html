@@ -19,10 +19,12 @@
 		</div>
 		<table class="table table-striped table-hover">
 			<thead>
-				<td class="col-3">Nom </td>
-				<td class="col-3">Couleur</td>
-				<td class="col-3">Sexe</td>
-				<td class="col-3">Action</td>
+				<tr>
+					<th class="col-3">Nom </th>
+					<th class="col-3">Couleur</th>
+					<th class="col-3">Sexe</th>
+					<th class="col-3">Action</th>
+				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="animalItem : ${animalList}">
